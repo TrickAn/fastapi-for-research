@@ -10,8 +10,8 @@ video_router = APIRouter(prefix='/video',
                          )
 
 
-@video_router.post('/')
-async def root(file: UploadFile = File(...)):
+@video_router.post('/mp4')
+async def upload_video(file: UploadFile = File(...)):
     with open('test.mp4', 'wb') as buffer:
         shutil.copyfileobj(file.file, buffer)
 
