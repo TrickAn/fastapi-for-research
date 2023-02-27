@@ -2,8 +2,6 @@ import shutil
 from typing import List
 from fastapi import APIRouter, UploadFile, File
 
-# from schemas import UploadVideo
-
 video_router = APIRouter(prefix='/video',
                          tags=['video'],
                          responses={404: {"description": "Not found"}},

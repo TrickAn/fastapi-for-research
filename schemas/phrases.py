@@ -9,6 +9,10 @@ class PhraseCreate(PhraseBase):
     pass
 
 
+class PhraseGet(PhraseBase):
+    name: str
+
+
 class Phrase(PhraseBase):
     id: int
     user_id: int
