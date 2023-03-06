@@ -9,6 +9,10 @@ class PhraseCreate(PhraseBase):
     pass
 
 
+class PhraseUpdate(PhraseBase):
+    pass
+
+
 class PhraseGet(PhraseBase):
     name: str
 

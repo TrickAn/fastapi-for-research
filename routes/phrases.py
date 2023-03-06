@@ -1,10 +1,9 @@
-from fastapi import Depends, APIRouter
-from fastapi.encoders import jsonable_encoder
+from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
 
-from crud.phrases import create_user_phrase
-from schemas.phrases import PhraseBase, PhraseCreate, PhraseGet
+import crud.phrases as crud
 from db.database import get_db
+from schemas.phrases import PhraseCreate, PhraseUpdate, Phrase
 
 Phrases = APIRouter(prefix='/phrases',
                     tags=['phrases'],
@@ -12,20 +11,32 @@ Phrases = APIRouter(prefix='/phrases',
                     )
 
 
-@Phrases.post("/users/{user_id}/phrases/", response_model=PhraseBase)
+@Phrases.get("/")
+def get_phrases(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    phrases = crud.get_phrases(db, skip=skip, limit=limit)
+    return phrases
+
+
+@Phrases.get("/{phrase_id}/", response_model=Phrase)
+def get_phrase(phrase_id: int, db: Session = Depends(get_db)):
+    phrase = crud.get_phrase_by_id(db, phrase_id)
+    return phrase
+
+
+@Phrases.post("/{user_id}/", response_model=Phrase)
 def create_phrase_for_user(
         user_id: int, phrase: PhraseCreate, db: Session = Depends(get_db)
 ):
-    return create_user_phrase(db=db, phrase=phrase, user_id=user_id)
+    db_phrase = crud.create_user_phrase(db=db, phrase=phrase, user_id=user_id)
+    return db_phrase
 
 
-# @Phrases.get("/phrases/", response_model=list[PhraseGet])
-# def read_phrases(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-#     phrases = get_phrases(db, skip=skip, limit=limit)
-#     return phrases.name
+@Phrases.put("/{phrase_id}/", response_model=Phrase)
+def phrase_update(phrase_id: int, phrase: PhraseUpdate, db: Session = Depends(get_db)):
+    db_phrase = crud.update_phrase(db, phrase_id, phrase)
+    if db_phrase is None:
+        raise HTTPException(status_code=404)
+    return db_phrase
 
 
-@Phrases.put("/items/{item_id}", response_model=PhraseBase)
-async def update_item(item_id: int, item: PhraseBase):
-
-    return update_item_encoded
+# TODO: add delete phrase

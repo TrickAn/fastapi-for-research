@@ -1,15 +1,19 @@
 from sqlalchemy.orm import Session
 
 from models.phrase import Phrase
-from models.users import User
-from schemas.phrases import PhraseCreate, PhraseBase
+from schemas.phrases import PhraseCreate, PhraseUpdate
+
+# TODO: add user name to phrases response
+def get_phrases(db: Session, skip: int = 0, limit: int = 100):
+    # return db.query(Phrase.text, User.name).join(User, User.id == Phrase.user_id).group_by(Phrase.id).offset(skip).limit(limit).all()
+    return db.query(Phrase).offset(skip).limit(limit).all()
 
 
-def get_phrases(db: Session, skip: int = 0, limit: int = 100) -> PhraseBase:
-    return db.query(Phrase.text, User.name).join(User, User.id == Phrase.user_id).group_by(Phrase.id).offset(skip).limit(limit).first()
+def get_phrase_by_id(db: Session, phrase_id: int):
+    return db.query(Phrase).get(phrase_id)
 
 
-def get_phrase_by_user_id(db: Session, user_id: int):
+def get_phrases_by_user_id(db: Session, user_id: int):
     return db.query(Phrase).filter(Phrase.user_id == user_id).all()
 
 
@@ -19,3 +23,13 @@ def create_user_phrase(db: Session, phrase: PhraseCreate, user_id: int):
     db.commit()
     db.refresh(db_phrase)
     return db_phrase
+
+
+def update_phrase(db: Session,  phrase_id: int, updated_phrase: PhraseUpdate):
+    phrase = get_phrase_by_id(db, phrase_id)
+    if phrase is None:
+        return None
+    for key, value in updated_phrase:
+        setattr(phrase, key, value)
+    db.commit()
+    return phrase
