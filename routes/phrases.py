@@ -17,8 +17,20 @@ def get_phrases(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return phrases
 
 
+@Phrases.get("/{user_id}/", response_model=Phrase)
+def get_phrase_by_user_id(user_id: int, db: Session = Depends(get_db)):
+    phrase = crud.get_phrases_by_user_id(db, user_id)
+    return phrase
+
+
+@Phrases.get("/{user_name}/", response_model=Phrase)
+def get_phrase_by_user_name(user_name: int, db: Session = Depends(get_db)):
+    phrase = crud.get_phrases_by_user_name(db, user_name)
+    return phrase
+
+
 @Phrases.get("/{phrase_id}/", response_model=Phrase)
-def get_phrase(phrase_id: int, db: Session = Depends(get_db)):
+def get_phrase_by_id(phrase_id: int, db: Session = Depends(get_db)):
     phrase = crud.get_phrase_by_id(db, phrase_id)
     return phrase
 
@@ -39,4 +51,9 @@ def phrase_update(phrase_id: int, phrase: PhraseUpdate, db: Session = Depends(ge
     return db_phrase
 
 
-# TODO: add delete phrase
+@Phrases.delete("/{phrase_id}/", status_code=204)
+def delete_phrase(phrase_id: int, db: Session = Depends(get_db)):
+    crud.delete_phrase(db, phrase_id)
+    return None
+
+

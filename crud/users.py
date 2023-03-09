@@ -24,3 +24,12 @@ def create_user(db: Session, user: UserCreate):
     db.refresh(db_user)
     return db_user
 
+
+# TODO: Update user
+def update_user():
+    pass
+
+
+def delete_user(db: Session, user_id: int):
+    db.query(User).filter(User.id == user_id).delete()
+    db.commit()
