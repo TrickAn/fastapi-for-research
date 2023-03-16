@@ -11,8 +11,8 @@ class UserCreate(UserBase):
     password: str
 
 
-class UserUpdate(UserBase):
-    pass
+class UserUpdateName(UserBase):
+    name: str
 
 
 class User(UserBase):

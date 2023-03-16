@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 import crud.users as crud
 import schemas.users
 from db.database import get_db
+from schemas.users import UserUpdateName
 
 Users = APIRouter(prefix='/users',
                   tags=['users'],
@@ -31,6 +32,13 @@ def create_user(user: schemas.users.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Name already registered")
     return crud.create_user(db=db, user=user)
 
+@Users.put("/", response_model=schemas.users.User)
+def user_name_update(user_id: int, user: UserUpdateName, db: Session = Depends(get_db)):
+    db_user = crud.update_user_name(db, user_id, user)
+    if db_user is None:
+        raise HTTPException(status_code=404)
+    return db_user
+
 
 @Users.delete("/")
 def delete_user(user_id: int, db: Session = Depends(get_db)):
@@ -40,6 +48,5 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     return crud.delete_user(db, user_id)
 
 
-#@Users.update()
 
 
