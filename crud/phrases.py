@@ -1,24 +1,24 @@
 from sqlalchemy.orm import Session
 
 from models.phrase import Phrase
+from models.users import User
 from schemas.phrases import PhraseCreate, PhraseUpdate
 
 
 def get_phrases(db: Session, skip: int = 0, limit: int = 100):
-    # return db.query(Phrase.text, User.name).join(User, User.id == Phrase.user_id).group_by(Phrase.id).offset(skip).limit(limit).all()
     return db.query(Phrase).offset(skip).limit(limit).all()
 
 
-def get_phrase_by_id(db: Session, phrase_id: int):
-    return db.query(Phrase).get(phrase_id)
-
+def get_phrase_by_id(db: Session, id: int):
+    return db.query(Phrase).filter(Phrase.id == id).first()
+# TODO FIX
 
 def get_phrases_by_user_id(db: Session, user_id: int):
     return db.query(Phrase).filter(Phrase.user_id == user_id).all()
 
-def get_phrases_by_user_name(db: Session, user_name: int):
-    return db.query(Phrase).filter(Phrase.user_name == user_name).all()
-
+def get_phrases_by_user_name(db: Session, user_name: str):
+    return db.query(User).filter(User.name == user_name).first()
+# TODO FIX
 
 def create_user_phrase(db: Session, phrase: PhraseCreate, user_id: int):
     db_phrase = Phrase(**phrase.dict(), user_id=user_id)

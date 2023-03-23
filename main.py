@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
+
 from db.database import engine, Base
 from routes.video import video_router
 from routes.users import Users

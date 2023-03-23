@@ -15,6 +15,10 @@ class UserUpdateName(UserBase):
     name: str
 
 
+class UserUpdatePassword(BaseModel):
+    password: str
+
+
 class User(UserBase):
     id: int
     is_active: bool

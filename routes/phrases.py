@@ -17,23 +17,24 @@ def get_phrases(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return phrases
 
 
-@Phrases.get("/{user_id}/", response_model=Phrase)
+@Phrases.get("/{user_id}/")
 def get_phrase_by_user_id(user_id: int, db: Session = Depends(get_db)):
     phrase = crud.get_phrases_by_user_id(db, user_id)
     return phrase
 
+@Phrases.get("/{user_name}/")
+def get_phrases_by_user_name(user_name: str, db: Session = Depends(get_db)):
+    phrases = crud.get_phrases_by_user_name(db, user_name)
+    if phrases is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return phrases
+# TODO: FIX
 
-@Phrases.get("/{user_name}/", response_model=Phrase)
-def get_phrase_by_user_name(user_name: int, db: Session = Depends(get_db)):
-    phrase = crud.get_phrases_by_user_name(db, user_name)
+@Phrases.get("/{phrase_id}/")
+def get_phrase_by_id(id: int, db: Session = Depends(get_db)):
+    phrase = crud.get_phrase_by_id(db, id)
     return phrase
-
-
-@Phrases.get("/{phrase_id}/", response_model=Phrase)
-def get_phrase_by_id(phrase_id: int, db: Session = Depends(get_db)):
-    phrase = crud.get_phrase_by_id(db, phrase_id)
-    return phrase
-
+# TODO: FIX
 
 @Phrases.post("/{user_id}/", response_model=Phrase)
 def create_phrase_for_user(
@@ -55,5 +56,7 @@ def phrase_update(phrase_id: int, phrase: PhraseUpdate, db: Session = Depends(ge
 def delete_phrase(phrase_id: int, db: Session = Depends(get_db)):
     crud.delete_phrase(db, phrase_id)
     return None
+
+
 
 
