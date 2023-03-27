@@ -5,16 +5,16 @@ from models.users import User
 from schemas.users import UserCreate, UserUpdateName, UserUpdatePassword
 
 
+def get_user_by_name(db: Session, user_name: str):
+    return db.query(User).filter(User.name == user_name).first()
+
+
 def get_user(db: Session, user_id: int):
     return db.query(User).filter(User.id == user_id).first()
 
 
 def get_user_pass(db: Session, user_password: str):
     return db.query(User).filter(User.password == user_password)
-
-
-def get_user_by_name(db: Session, user_name: str):
-    return db.query(User).filter(User.name == user_name).first()
 
 
 def get_user_by_id(db: Session, user_id: int):

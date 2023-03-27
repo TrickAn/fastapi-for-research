@@ -1,6 +1,6 @@
-from pydantic import BaseModel
+# from pydantic import BaseModel
 
 
-class UploadVideo(BaseModel):
-    title: str
-    description: str
+# class UploadVideo(BaseModel):
+#    title: str
+#    description: str
