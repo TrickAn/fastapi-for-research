@@ -56,4 +56,3 @@ def update_user_password(db: Session, user_name: str, updated_user: UserUpdatePa
 def delete_user(db: Session, user_id: int):
     db.query(User).filter(User.id == user_id).delete()
     db.commit()
-

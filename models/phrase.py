@@ -11,4 +11,4 @@ class Phrase(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     text = Column(String)
 
-    user = relationship('User', backref=backref('phrases', cascade='all,delete'))
+    user = relationship('User', back_populates='phrases')

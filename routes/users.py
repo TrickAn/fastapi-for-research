@@ -1,7 +1,6 @@
 from fastapi import Depends, HTTPException, APIRouter
 from sqlalchemy.orm import Session
 import crud.users as crud
-import crud.phrases as crudp
 import schemas.users
 from db.database import get_db
 from schemas.users import UserUpdateName, UserUpdatePassword
@@ -42,7 +41,6 @@ def read_user_by_name(user_name: str, db: Session = Depends(get_db)):
     return db_user
 
 
-
 @Users.put("/{user_id}/", response_model=schemas.users.User)
 def user_name_update(user_id: int, user: UserUpdateName, db: Session = Depends(get_db)):
     db_user = crud.update_user_name(db, user_id, user)
@@ -57,8 +55,6 @@ def user_pass_update(user_name: str, user: UserUpdatePassword, db: Session = Dep
     if db_user is None:
         raise HTTPException(status_code=404)
     return db_user
-
-
 
 
 @Users.delete("/{user_id}/")

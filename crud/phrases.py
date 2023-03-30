@@ -44,4 +44,3 @@ def delete_phrase(db: Session, phrase_id: int):
     db.query(Phrase).filter(Phrase.id == phrase_id).delete()
     db.commit()
     return None
-
