@@ -34,7 +34,7 @@ def get_phrase_by_id(phrase_id: int, db: Session = Depends(get_db)):
     return phrase
 
 
-@Phrases.get("/{user_id}/")
+@Phrases.get("/id/{user_id}/")
 def get_phrase_by_user_id(user_id: int, db: Session = Depends(get_db)):
     phrase = crud.get_phrases_by_user_id(db, user_id)
     if phrase is None or phrase == []:
@@ -42,9 +42,9 @@ def get_phrase_by_user_id(user_id: int, db: Session = Depends(get_db)):
     return phrase
 
 
-# TODO: FIX
 
-@Phrases.get("/{user_name}/", response_model=schemas.users.User)
+
+@Phrases.get("/name/{user_name}/", response_model=schemas.users.User)
 def get_phrases_by_user_name(user_name: str, db: Session = Depends(get_db)):
     phrases = crud.get_phrases_by_user_name(db, user_name=user_name)
     if phrases is None:
@@ -52,7 +52,7 @@ def get_phrases_by_user_name(user_name: str, db: Session = Depends(get_db)):
     return phrases
 
 
-# TODO: FIX
+
 
 @Phrases.put("/{phrase_id}/", response_model=Phrase)
 def phrase_update(phrase_id: int, phrase: PhraseUpdate, db: Session = Depends(get_db)):

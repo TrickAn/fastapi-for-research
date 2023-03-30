@@ -1,6 +1,7 @@
 from fastapi import Depends, HTTPException, APIRouter
 from sqlalchemy.orm import Session
 import crud.users as crud
+import crud.phrases as crudp
 import schemas.users
 from db.database import get_db
 from schemas.users import UserUpdateName, UserUpdatePassword
@@ -33,7 +34,7 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     return db_user
 
 
-@Users.get("/{user_name}/", response_model=schemas.users.User)
+@Users.get("/name/{user_name}/", response_model=schemas.users.User)
 def read_user_by_name(user_name: str, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_name(db, user_name=user_name)
     if db_user is None:
@@ -41,7 +42,7 @@ def read_user_by_name(user_name: str, db: Session = Depends(get_db)):
     return db_user
 
 
-# TODO: FIX
+
 @Users.put("/{user_id}/", response_model=schemas.users.User)
 def user_name_update(user_id: int, user: UserUpdateName, db: Session = Depends(get_db)):
     db_user = crud.update_user_name(db, user_id, user)
@@ -50,7 +51,7 @@ def user_name_update(user_id: int, user: UserUpdateName, db: Session = Depends(g
     return db_user
 
 
-@Users.put("/{user_name}/", response_model=schemas.users.User)
+@Users.put("/password/{user_name}/", response_model=schemas.users.User)
 def user_pass_update(user_name: str, user: UserUpdatePassword, db: Session = Depends(get_db)):
     db_user = crud.update_user_password(db, user_name, user)
     if db_user is None:
@@ -58,13 +59,13 @@ def user_pass_update(user_name: str, user: UserUpdatePassword, db: Session = Dep
     return db_user
 
 
-# TODO: FIX
+
 
 @Users.delete("/{user_id}/")
 def delete_user(user_id: int, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return crud.delete_user(db, user_id)
-
+    crud.delete_user(db, user_id)
+    return None
 # TODO: If i delete user, phrases won`t delete

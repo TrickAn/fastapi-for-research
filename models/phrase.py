@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 
 from db.database import Base
 
@@ -11,4 +11,4 @@ class Phrase(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     text = Column(String)
 
-    user = relationship('User', back_populates='phrases')
+    user = relationship('User', backref=backref('phrases', cascade='all,delete'))

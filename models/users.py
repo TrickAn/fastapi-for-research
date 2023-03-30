@@ -12,4 +12,4 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     hashed_password = Column(String)
 
-    phrases = relationship("Phrase", back_populates="user")
+    phrases = relationship("Phrase", cascade='all, delete', backref="user")
