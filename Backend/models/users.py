@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.orm import relationship
 
-from db.database import Base
+from Backend.db.database import Base
 
 
 class User(Base):
@@ -11,5 +11,6 @@ class User(Base):
     name = Column(String, unique=True)
     is_active = Column(Boolean, default=True)
     hashed_password = Column(String)
+    description = Column(String)
 
     phrases = relationship("Phrase", back_populates="user")

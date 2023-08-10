@@ -1,10 +1,10 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
 
-import crud.phrases as crud
-import schemas.users
-from db.database import get_db
-from schemas.phrases import PhraseCreate, PhraseUpdate, Phrase
+import Backend.crud.phrases as crud
+import Backend.schemas.users
+from Backend.db.database import get_db
+from Backend.schemas.phrases import PhraseCreate, PhraseUpdate, Phrase
 
 Phrases = APIRouter(prefix='/phrases',
                     tags=['phrases'],
@@ -42,7 +42,7 @@ def get_phrase_by_user_id(user_id: int, db: Session = Depends(get_db)):
     return phrase
 
 
-@Phrases.get("/name/{user_name}/", response_model=schemas.users.User)
+@Phrases.get("/name/{user_name}/", response_model=Backend.schemas.users.User)
 def get_phrases_by_user_name(user_name: str, db: Session = Depends(get_db)):
     phrases = crud.get_phrases_by_user_name(db, user_name=user_name)
     if phrases is None:

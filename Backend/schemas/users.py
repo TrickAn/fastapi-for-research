@@ -1,10 +1,13 @@
 from pydantic import BaseModel
 
-from schemas.phrases import Phrase
+from Backend.schemas.phrases import Phrase
 
 
 class UserBase(BaseModel):
     name: str
+
+class UserDescription(UserBase):
+    description: str
 
 
 class UserCreate(UserBase):

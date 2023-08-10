@@ -15,3 +15,6 @@ app.include_router(Phrases)
 
 if __name__ == '__main__':
     uvicorn.run('main:app', reload=True)
+
+
+# TODO: Make description of users and repair 'id' of phrases and users

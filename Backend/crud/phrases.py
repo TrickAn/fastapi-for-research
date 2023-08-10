@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 
 
-from models.phrase import Phrase
-from models.users import User
-from schemas.phrases import PhraseCreate, PhraseUpdate
+from Backend.models.phrase import Phrase
+from Backend.models.users import User
+from Backend.schemas.phrases import PhraseCreate, PhraseUpdate
 
 
 def get_phrases(db: Session, skip: int = 0, limit: int = 100):
