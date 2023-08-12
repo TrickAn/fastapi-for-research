@@ -26,7 +26,7 @@ export const DatabaseState = ({ children }) => {
       name: name,
       password: password,
     };
-    const res = await axios.post(`${url}/users/post`, user);
+    const res = await axios.post(`${url}/users/`, user);
 
     const payload = res.data;
     dispatch({
