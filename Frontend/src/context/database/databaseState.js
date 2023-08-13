@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { DatabaseContext } from "./databaseContext";
 import { DatabaseReduser } from "./databaseReduser";
-import { ADD_USER, DELETE_USER, FETCH_USERS } from "../types";
+import { ADD_USER, DELETE_USER, FETCH_USERS, SHOW_LOADING } from "../types";
 import axios from "axios";
 
 const url = "http://127.0.0.1:8000";
@@ -9,10 +9,16 @@ const url = "http://127.0.0.1:8000";
 export const DatabaseState = ({ children }) => {
   const initialState = {
     users: [],
+    loading: false
   };
   const [state, dispatch] = useReducer(DatabaseReduser, initialState);
 
+  const showLoading = () => {
+    dispatch({ type: SHOW_LOADING})
+  }
+
   const fetchUsers = async () => {
+    showLoading()
     const res = await axios.get(`${url}/users/`);
     const payload = res.data;
     dispatch({
@@ -47,9 +53,11 @@ export const DatabaseState = ({ children }) => {
   return (
     <DatabaseContext.Provider
       value={{
+        showLoading,
         addUser,
         deleteUser,
         fetchUsers,
+        loading: state.loading,
         users: state.users,
       }}
     >

@@ -1,3 +1,3 @@
 @set a=%~dp0Frontend
-cd %a%
-npm start
+@cd %a%
+@npm start
