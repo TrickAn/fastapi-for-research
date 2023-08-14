@@ -46,7 +46,7 @@ export const DatabaseState = ({ children }) => {
 
     dispatch({
       type: DELETE_USER,
-      paiload: id,
+      payload: id,
     });
   };
 
