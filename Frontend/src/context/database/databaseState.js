@@ -61,7 +61,6 @@ export const DatabaseState = ({ children }) => {
 
   const addPhrase = async (index, id, phrase) => {
     const res = await axios.post(`${url}/phrases/${id}/`, {"text": phrase})
-
     dispatch({
       type: ADD_PHRASE,
       payload: {"index": index, "phrase": res.data}

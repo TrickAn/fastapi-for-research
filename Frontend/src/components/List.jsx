@@ -1,19 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { DatabaseContext } from "../context/database/databaseContext";
 import { Loader } from "./Loading";
-import { PhraseAdditor } from "./PhraseAdditor";
 import { AdditorContext } from "../context/additor/additorContext";
 
 export const List = () => {
   const additor = useContext(AdditorContext)
   const db = useContext(DatabaseContext);
-  const [showAdditor, setShowAdditor] = useState(false)
 
   useEffect(() => {
     db.fetchUsers();
   }, []);
 
-  const getPhrasesText = (phrases, index) => {
+  const getPhrasesText = (phrases, index, id) => {
     if (phrases.length === 0) {
       return (
         <>
@@ -21,7 +19,7 @@ export const List = () => {
             Добавить фразу
           </span>
           <button
-          onClick={() => {additor.show()}}
+          onClick={() => {additor.show(index, id)}}
             type="button"
             className="btn btn-outline-success btn-sm"
             style={{ marginLeft: "0.5rem" }}
@@ -52,7 +50,7 @@ export const List = () => {
           Добавить фразу 
         </span>
         <button
-          onClick={() => {additor.show()}}
+          onClick={() => {additor.show(index, id)}}
           type="button"
           className="btn btn-outline-success btn-sm"
           style={{ marginLeft: "0.5rem" }}
@@ -78,7 +76,7 @@ export const List = () => {
                 <h6>
                   {user.id}. {user.name}
                 </h6>
-                {getPhrasesText(user.phrases, db.users.indexOf(user))}
+                {getPhrasesText(user.phrases, db.users.indexOf(user), user.id)}
               </div>
               <div>
                 <button

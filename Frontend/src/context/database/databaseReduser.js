@@ -21,6 +21,6 @@ const handlers = {
 
 export const DatabaseReduser = (state, action) => {
     const handle = handlers[action.type] || handlers.DEFAULT
-    console.log(handle(state, action))
+    // console.log(handle(state, action))
     return handle(state, action)
 }
