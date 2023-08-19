@@ -22,6 +22,11 @@ const Form = () => {
       .then(() => {
         setNameValue("");
         setPasswordValue("");
+        setUserDirty(false)
+        setPasswordDirty(false)
+        setUserError("Это поле не может быть пустым")
+        setPasswordError("Это поле не может быть пустым")
+
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -30,7 +35,7 @@ const Form = () => {
 
   const blurHandler = async (e) => {
     if (e.target.name === "user") {
-      setUserDirty(true);
+      
       if (e.target.value) {
         const response = await axios.get(
           `${url}/users/name/${e.target.value}/`
@@ -43,13 +48,14 @@ const Form = () => {
       } else {
           setUserError("Это поле не может быть пустым")
         }
+      setUserDirty(true);  
     } else {
-      setPasswordDirty(true);
       if (e.target.value) {
         setPasswordError("");
       } else {
         setPasswordError("Это поле не может быть пустым")
       }
+      setPasswordDirty(true)
     }
   };
 
@@ -66,6 +72,7 @@ const Form = () => {
       <form onSubmit={submitHandler}>
         <div className="form-group">
           <input
+            autoComplete="off"
             name="user"
             onBlur={(e) => blurHandler(e)}
             type="text"
@@ -80,6 +87,7 @@ const Form = () => {
         </div>
         <div className="form-group">
           <input
+            autoComplete="off"
             name="password"
             onBlur={(e) => blurHandler(e)}
             type="text"

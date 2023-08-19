@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { DatabaseContext } from "../context/database/databaseContext";
 import { AdditorContext } from "../context/additor/additorContext";
+import { DatabaseContext } from "../context/database/databaseContext";
 
 export const PhraseAdditor = () => {
   const [phrase, setPhrase] = useState("");
@@ -13,53 +13,42 @@ export const PhraseAdditor = () => {
     setPhrase("")
     hide()
 
+  
+
   };
-  if (state.show === false) {
-    return null;
-  } else {
-    return (
-      <>
-        <button
-          type="button"
-          className="bg-dark opacity-50 w-100 h-100 position-fixed z-1"
-          style={{ top: 0, left: 0 }}
-          onClick={() => {setPhrase(() => {hide()})}}
-        ></button>
-        <div
-          className="bg-dark position-fixed z-2 rounded-3 p-3 pt-0"
-          style={{
-            width: "30%",
-            top: "50%",
-            left: "50%",
-            marginTop: "-250px",
-            marginLeft: "-320px",
-            verticalAlign: "middle",
-          }}
-        >
-          <button
-            type="button"
-            className="btn text-light"
-            onClick={() => {
-              setPhrase(() => {hide()})
-            }}
-          >
-            &times;
-          </button>
-          <div className="bg-light p-2 rounded rounded-3">
-            <form className="form-group" onSubmit={submitHandler}>
-              <input
-                value={phrase}
-                type="text"
-                className="form-control mb-3"
-                placeholder="Введите фразу"
-                autoFocus="autofocus"
-                onChange={(e) => setPhrase(e.target.value)}
-              />
-              <button className="btn btn-primary">Добавить</button>
-            </form>
-          </div>
-        </div>
-      </>
-    );
+
+const hideElem = () => {
+    setPhrase("")
+    hide()
   }
+
+  if (!state.show) {
+    return null
+  }
+
+  return (
+    <div
+      className="position-fixed w-100 h-100 z-2 d-flex align-items-center justify-content-center top-0 left-0"
+      style={{
+        background: "rgba(0, 0, 0, 0.5)",
+      }}
+    >
+      <div className="bg-white rounded-3 p-3 pt-5 position-relative" style={{minWidth: "500px"}}>
+        <button onClick={() => {hideElem()}} type="button" className="btn btn-outline-secondary text-dark position-absolute" style={{right: "3px", top: "3px"}}>
+          &times;
+        </button>
+          <form className="form-group" onSubmit={submitHandler}>
+            <input
+              type="text"
+              className="form-control mb-2"
+              placeholder="Введите фразу"
+              autoFocus="autofocus"
+              onChange={(e) => setPhrase(e.target.value)}
+            />
+            <button className="btn btn-primary">Добавить</button>
+          </form>
+
+      </div>
+    </div>
+  );
 };
