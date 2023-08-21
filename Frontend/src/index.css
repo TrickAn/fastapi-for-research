@@ -6,11 +6,15 @@ input[placeholder] {
     background-color: rgba(0, 0, 0, 0.1);
 }
 .btn-close-additor {
+    padding: 0;
     border-style: none;
     background-color: transparent;
-    width: 40px;
+    width:40px;
     height: 40px;
     border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 .btn-tinted {
@@ -28,3 +32,17 @@ input[placeholder] {
 .btn-tinted:hover {
         cursor: default;
     }
+
+.btn-add, .btn-delete {
+    border-style: none;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    height: 24px;
+    width: 24px;
+}    
+
+.btn-add {
+    margin-left: .5rem;
+}

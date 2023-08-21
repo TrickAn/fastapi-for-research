@@ -10,7 +10,6 @@ import "./index.css"
 const App = () => {
   return (
     <DatabaseState>
-      
       <Navbar />
       <Form/>
       <AdditorState>

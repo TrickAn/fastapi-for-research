@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AdditorContext } from "../context/additor/additorContext";
 import { DatabaseContext } from "../context/database/databaseContext";
+import close from "../icons/close24.png"
 
 export const PhraseAdditor = () => {
   const [phrase, setPhrase] = useState("");
@@ -60,7 +61,7 @@ export const PhraseAdditor = () => {
             className="btn-close-additor position-absolute"
             style={{ right: "3px", top: "3px" }}
           >
-            &times;
+            <img src={close} alt="close" />
           </button>
           <form className="form-group" onSubmit={submitHandler}>
             <input
