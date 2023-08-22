@@ -19,8 +19,7 @@ export const List = () => {
             <span className="mb-0 opacity-75">{phrase.text}</span>
             <button
               type="button"
-              className="btn btn-light btn-delete rounded-1"
-              style={{ marginLeft: "0.5rem" }}
+              className="btn btn-outline-light btn-delete rounded-1 border-0"
               onClick={() => {
                 db.deletePhrase(phrase.id, index);
               }}
@@ -36,7 +35,7 @@ export const List = () => {
               additor.show(index, id);
             }}
             type="button"
-            className="btn btn-light btn-add rounded-1"
+            className="btn btn-add rounded-1 btn-outline-light border-0"
           >
             <img src={require("../icons/add16.png")} alt="add" />
           </button>
@@ -54,7 +53,7 @@ export const List = () => {
       <div className="container p-4 justify-content-center">
         <div className="list-group">
           {db.users.map((user) => (
-            <div className="list-group-item d-flex py-3" key={user.id}>
+            <div className="list-group-item d-flex py-3 bg-white-gradient" key={user.id}>
               <div className="d-flex gap-2 w-100 justify-content-between">
                 <div>
                   <h6>

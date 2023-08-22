@@ -1,48 +1,53 @@
 input[placeholder] {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .btn-close-additor:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .btn-close-additor {
-    padding: 0;
-    border-style: none;
-    background-color: transparent;
-    width:40px;
-    height: 40px;
-    border-radius: 5px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
+  padding: 0;
+  border-style: none;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
 .btn-tinted {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    top: 0;
-    left:0; 
-    z-index: 1;
-    border-style: none;
-    
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border-style: none;
 }
 
 .btn-tinted:hover {
-        cursor: default;
-    }
+  cursor: default;
+}
 
-.btn-add, .btn-delete {
-    border-style: none;
-    padding: 0;
-    justify-content: center;
-    align-items: center;
-    display: inline-flex;
-    height: 24px;
-    width: 24px;
-}    
+.btn-add,
+.btn-delete {
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  height: 24px;
+  width: 24px;
+  margin-left: 0.5rem;
+  
+}
 
-.btn-add {
-    margin-left: .5rem;
+.btn-add:hover, .btn-delete:hover {
+  background-color: rgba(0, 0, 0, .2);
+}
+
+.bg-white-gradient {
+  background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.15));
 }
