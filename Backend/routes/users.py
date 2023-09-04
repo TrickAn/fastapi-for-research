@@ -13,7 +13,7 @@ Users = APIRouter(prefix='/users',
 
 @Users.post("/", response_model=Backend.schemas.users.User)
 def create_user(user: Backend.schemas.users.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_name(db, user_name=user.name)
+    db_user = crud.get_user_by_name(db, user_name=user.name.strip())
     if db_user:
         raise HTTPException(status_code=400, detail="Name already registered")
     return crud.create_user(db=db, user=user)
@@ -35,7 +35,7 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
 
 @Users.get("/name/{user_name}/", response_model=Backend.schemas.users.User)
 def read_user_by_name(user_name: str, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_name(db, user_name=user_name)
+    db_user = crud.get_user_by_name(db, user_name=user_name.strip())
     if db_user is None:
         raise HTTPException(status_code=200, detail="User not found")
     # return db_user
