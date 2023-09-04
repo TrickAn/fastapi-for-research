@@ -13,8 +13,9 @@ const Form = () => {
   const [passwordError, setPasswordError] = useState(
     "Это поле не может быть пустым"
   );
-  const [formValid, setFormValid] = useState(false)
+  const [formValid, setFormValid] = useState(false);
   const db = useContext(DatabaseContext);
+  const [inputType, setInputType] = useState('password')
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -22,11 +23,10 @@ const Form = () => {
       .then(() => {
         setNameValue("");
         setPasswordValue("");
-        setUserDirty(false)
-        setPasswordDirty(false)
-        setUserError("Это поле не может быть пустым")
-        setPasswordError("Это поле не может быть пустым")
-
+        setUserDirty(false);
+        setPasswordDirty(false);
+        setUserError("Это поле не может быть пустым");
+        setPasswordError("Это поле не может быть пустым");
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -35,7 +35,6 @@ const Form = () => {
 
   const blurHandler = async (e) => {
     if (e.target.name === "user") {
-      
       if (e.target.value) {
         const response = await axios.get(
           `${url}/users/name/${e.target.value}/`
@@ -44,28 +43,36 @@ const Form = () => {
           setUserError("Это имя уже занято");
         } else {
           setUserError("");
-        } 
-      } else {
-          setUserError("Это поле не может быть пустым")
         }
-      setUserDirty(true);  
+      } else {
+        setUserError("Это поле не может быть пустым");
+      }
+      setUserDirty(true);
     } else {
       if (e.target.value) {
         setPasswordError("");
       } else {
-        setPasswordError("Это поле не может быть пустым")
+        setPasswordError("Это поле не может быть пустым");
       }
-      setPasswordDirty(true)
+      setPasswordDirty(true);
     }
   };
 
+  const changeType = () => {
+    if (inputType === "password") {
+      setInputType("text")
+    } else {
+      setInputType("password")
+    }
+  }
+
   useEffect(() => {
     if (userError || passwordError) {
-      setFormValid(false)
+      setFormValid(false);
     } else {
-      setFormValid(true)
+      setFormValid(true);
     }
-  }, [userError, passwordError])
+  }, [userError, passwordError]);
 
   return (
     <div className="container mt-3 mb-3">
@@ -81,25 +88,40 @@ const Form = () => {
             value={nameValue}
             onChange={(e) => setNameValue(e.target.value)}
           />
-          {userDirty && userError && (
-            <div className="text-danger">{userError}</div>
-          )}
         </div>
-        <div className="form-group">
+        {userDirty && userError && (
+          <div className="text-danger">{userError}</div>
+        )}
+        <div className="form-group position-relative">
+          <button
+          onClick={changeType}
+            type="button"
+            className="position-absolute top-50 end-0 btn-eye rounded-circle mx-1"
+            style={{ transform: "translateY(-50%)" }}
+          >
+            <span>
+              <i id="toggler" className="far fa-eye"></i>
+            </span>
+          </button>
           <input
             autoComplete="off"
+            type={inputType}
             name="password"
             onBlur={(e) => blurHandler(e)}
-            type="text"
             className="form-control mt-3"
             placeholder="Пароль"
             value={passwordValue}
             onChange={(e) => setPasswordValue(e.target.value)}
           />
-          {passwordDirty && passwordError && (
-            <div className="text-danger">{passwordError}</div>)}
         </div>
-        <button disabled={!formValid} type="submit" className="btn btn-primary mt-3">
+        {passwordDirty && passwordError && (
+          <div className="text-danger">{passwordError}</div>
+        )}
+        <button
+          disabled={!formValid}
+          type="submit"
+          className="btn btn-primary mt-3"
+        >
           Подтвердить
         </button>
       </form>

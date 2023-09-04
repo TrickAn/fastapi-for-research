@@ -2,19 +2,27 @@ input[placeholder] {
   font-weight: 500;
 }
 
-.btn-close-additor:hover {
+.btn-close-additor:hover, .btn-eye:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
-.btn-close-additor {
+.btn-close-additor, .btn-eye {
   padding: 0;
   border-style: none;
   background-color: transparent;
-  width: 40px;
-  height: 40px;
   border-radius: 5px;
   align-items: center;
   justify-content: center;
   display: flex;
+}
+
+.btn-close-additor {
+  width: 40px;
+  height: 40px;
+}
+
+.btn-eye {
+  width: 30px;
+  height: 30px;
 }
 
 .btn-tinted {
