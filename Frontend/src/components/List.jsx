@@ -15,8 +15,8 @@ export const List = () => {
     return (
       <div style={{ paddingLeft: "0.75rem" }}>
         {phrases.map((phrase) => (
-          <div key={phrase.id} className="mb-2 align-items-center">
-            <span className="mb-0 opacity-75">{phrase.text}</span>
+          <div key={phrase.id} className="mb-2 align-items-center"  style={{maxWidth:"90%", wordBreak:"break-all"}}>
+            {phrase.text}
             <button
               type="button"
               className="btn btn-outline-light btn-delete rounded-1 border-0"
@@ -53,7 +53,7 @@ export const List = () => {
       <div className="container p-4 justify-content-center">
         <div className="list-group">
           {db.users.map((user) => (
-            <div className="list-group-item d-flex py-3 bg-white-gradient" key={user.id}>
+            <div className="list-group-item d-flex py-3 bg-white-gradient position-relative" key={user.id}>
               <div className="d-flex gap-2 w-100 justify-content-between">
                 <div>
                   <h6>
@@ -68,7 +68,8 @@ export const List = () => {
                 <div>
                   <button
                     type="button"
-                    className="btn btn-outline-danger"
+                    className="btn btn-outline-danger position-absolute"
+                    style={{top:"16px", right:"16px"}}
                     onClick={() => {
                       db.deleteUser(user.id);
                     }}
