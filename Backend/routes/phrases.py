@@ -1,6 +1,5 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
-
 import Backend.crud.phrases as crud
 import Backend.schemas.users
 from Backend.db.database import get_db

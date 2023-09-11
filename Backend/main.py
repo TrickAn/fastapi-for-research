@@ -5,13 +5,12 @@ from fastapi import FastAPI
 import sys
 import os
 from subprocess import Popen
-
-sys.path.append(os.getcwd())
-
 from Backend.db.database import engine, Base
 from Backend.routes.users import Users
 from Backend.routes.phrases import Phrases
 from fastapi.middleware.cors import CORSMiddleware
+
+sys.path.append(os.getcwd())
 
 Base.metadata.create_all(bind=engine)
 
@@ -28,5 +27,3 @@ app.add_middleware(CORSMiddleware,
 if __name__ == '__main__':
     p = Popen("start.bat", cwd=os.getcwd())
     uvicorn.run('main:app', reload=True)
-
-# TODO: Make description of users and repair 'id' of phrases and users

@@ -1,6 +1,4 @@
 from sqlalchemy.orm import Session
-
-
 from Backend.models.phrase import Phrase
 from Backend.models.user import User
 from Backend.schemas.phrases import PhraseCreate, PhraseUpdate

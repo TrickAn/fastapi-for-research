@@ -1,21 +1,17 @@
 from pydantic import BaseModel
-
 from Backend.schemas.phrases import Phrase
 
 
 class UserBase(BaseModel):
     name: str
 
-class UserDescription(UserBase):
-    description: str
-
 
 class UserCreate(UserBase):
     password: str
 
 
-class UserUpdateName(UserBase):
-    name: str
+class UserUpdate(UserBase):
+    description: str | None
 
 
 class UserUpdatePassword(BaseModel):

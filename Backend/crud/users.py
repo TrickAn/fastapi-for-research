@@ -1,8 +1,7 @@
 from sqlalchemy.orm import Session
-
 from Backend.auth.security import get_password_hash
 from Backend.models.user import User
-from Backend.schemas.users import UserCreate, UserUpdateName, UserUpdatePassword
+from Backend.schemas.users import UserCreate, UserUpdate, UserUpdatePassword
 
 
 def get_user_by_name(db: Session, user_name: str):
@@ -21,7 +20,7 @@ def get_user_by_id(db: Session, user_id: int):
     return db.query(User).filter(User.id == user_id).first()
 
 
-def update_user_name(db: Session, user_id: int, updated_user: UserUpdateName):
+def update_user(db: Session, user_id: int, updated_user: UserUpdate):
     user = get_user_by_id(db, user_id)
     if user is None:
         return None
@@ -55,10 +54,14 @@ def update_user_password(db: Session, user_name: str, updated_user: UserUpdatePa
 # def get_description_by_id(db: Session, ):
 #    return db.query(User).filter(User.id == user.id).first()
 
+
 # def get_user_by_id(db: Session, user_id: int):
 #    return db.query(User).filter(User.id == user_id).first()
 
+
 # def get_description_by_name
+
+
 def delete_user(db: Session, user_id: int):
     user = db.query(User).filter(User.id == user_id).first()
     db.delete(user)

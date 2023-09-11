@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 import Backend.crud.users as crud
 import Backend.schemas.users
 from Backend.db.database import get_db
-from Backend.schemas.users import UserUpdateName, UserUpdatePassword
+from Backend.schemas.users import UserUpdate, UserUpdatePassword
 
 Users = APIRouter(prefix='/users',
                   tags=['users'],
@@ -43,8 +43,8 @@ def read_user_by_name(user_name: str, db: Session = Depends(get_db)):
 
 
 @Users.put("/{user_id}/", response_model=Backend.schemas.users.User)
-def user_name_update(user_id: int, user: UserUpdateName, db: Session = Depends(get_db)):
-    db_user = crud.update_user_name(db, user_id, user)
+def user_update(user_id: int, user: UserUpdate, db: Session = Depends(get_db)):
+    db_user = crud.update_user(db, user_id, user)
     if db_user is None:
         raise HTTPException(status_code=404)
     return db_user
@@ -65,4 +65,3 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     crud.delete_user(db, user_id)
     return None
-# TODO: If i delete user, phrases won`t delete
