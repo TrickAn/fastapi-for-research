@@ -2,15 +2,12 @@
 # app.include_router(video_router)
 import uvicorn
 from fastapi import FastAPI
-import sys
 import os
 from subprocess import Popen
 from Backend.db.database import engine, Base
 from Backend.routes.users import Users
 from Backend.routes.phrases import Phrases
 from fastapi.middleware.cors import CORSMiddleware
-
-sys.path.append(os.getcwd())
 
 Base.metadata.create_all(bind=engine)
 
